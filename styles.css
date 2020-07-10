@@ -1,0 +1,90 @@
+body {
+  background-color: black;
+}
+h1 {
+	text-align: center;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 2px red, 0 0 1em blue, 0 0 0.2em blue;
+  color: red;
+}
+p {
+  color: red;
+}
+
+div {
+	  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+
+	
+}
+div2 {
+	  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+
+	
+}
+div3 {
+	float: right;
+	  background-color: white;
+  width: 300px;
+  border: thick double red;
+  padding: 20px;
+  margin: 20px;
+  height: 200px;
+color: black;
+
+	
+}
+div5 {
+	float: right;
+	  background-color: white;
+  width: 300px;
+  border: thick double red;
+  padding: 10px;
+  margin: 20px;
+  height: 200px;
+color: black;
+
+	
+}
+div6 {
+	float: left;
+	  background-color: white;
+  width: 300px;
+  border: thick double red;
+  padding: 10px;
+  margin: 20px;
+  height: 200px;
+color: black;
+
+	
+}
+div4 {
+	float: left;
+	color:black;
+
+
+	
+}
+#Roulette {
+  display: block;
+  margin-left: 500px;
+  margin-right: 500px;
+  overflow: hidden; height: auto;
+  /* clear : both; */
+  float: center;
+}
+#tapis {
+
+  display: block;
+  margin-left: 400px;
+  margin-right: 400px;
+  overflow: hidden; height: auto;
+  /* clear : both; */
+  float: center;
+}
+}

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<script>
+i = 0;
+j = 0;
+var playerList = [];
+var StatPlayer = [];
+var tmpArray2 = [0];
+var clicked = 0;
+function clickOnOption(){
+var ind = document.getElementById("listplayer").selectedIndex;
+var tqt = document.getElementById("listplayer").options;
+clicked = tqt[ind].index;
+tmpArray2.pop();
+tmpArray2.push(clicked)
+ready();
+document.getElementById("listplayer").selectedIndex = ""+tmpArray2[0];
+
+}
+
+
+class Player {
+
+	constructor(name,bets){
+		this.name = name;
+		this.bets = bets;
+	}
+	nom(){
+		return this.name;
+	}
+	paris(){
+		return this.bets
+	}
+
+}
+function createStat(name , array){
+
+	if(typeof window[""+name] == 'undefined'){
+
+       window[""+name] = new Player(name,array);
+		StatPlayer.push(window[""+name]);
+
+    }
+	
+	
+
+}
+
+function launch(){
+i = 0;
+myVar = setInterval(spin,50)
+}
+function checkWinner(rnd){
+
+for( h = 0 ; h  < StatPlayer.length ; h++){
+	tmpArray = StatPlayer[h].paris();
+	for ( n = 0 ; n < tmpArray.length ; n++){
+	
+		if(tmpArray[n] == rnd){
+			document.getElementById("sisi").innerHTML += ""+StatPlayer[h].nom()+" a gagné <br>"
+		}
+	}
+
+}
+
+}
+function spin(){
+var roulette = [0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+	if ( j >= 3 ) {
+		rnd = Math.floor(Math.random() * 37);
+		if(roulette[i] == rnd){
+			clearInterval(myVar)
+			checkWinner(rnd);
+			
+		}
+	}
+	
+	if ( i > 36) {
+					i = 0;
+					j++;
+					
+	}
+	test = "rouls/roulette_"+roulette[i]+".png";
+	
+	document.getElementById('Roulette').src=test;
+	i++;
+	
+		
+		console.log(j);
+	
+}
+
+function stop(){
+
+	
+	 
+	clearInterval(myVar)
+	i = 0
+	j = 0
+
+	spin();
+
+
+}
+
+	function valider()
+ 
+{
+	var check = document.getElementById("name");
+	playerList.push(check.value)
+	console.log(playerList[0]);
+	document.getElementById("window").innerHTML += check.value+"<br>"
+	check.value = ""
+   
+}
+function reset()
+ 
+{
+	
+	
+	document.getElementById("window").innerHTML = "Joueurs :<br>"
+	
+   
+}
+
+
+function ready(){
+	
+	var lgn = playerList.length;
+	document.getElementById("game").innerHTML = "<label for="+"listplayer"+">Choisissez un joueur:</label>"
+	var test = document.createElement("select");
+	test.setAttribute("id","listplayer");
+	test.setAttribute("name","listplayer");
+
+	document.getElementById("game").appendChild(test);
+	document.getElementById("game").innerHTML += "<br>"
+	for( p = 0 ; p < lgn ; p ++){
+	
+	var node = document.createElement("option");
+	node.setAttribute('onclick',"clickOnOption();");
+	var textnode = document.createTextNode(playerList[p]);
+	node.appendChild(textnode);
+	
+	document.getElementById("listplayer").appendChild(node);
+	}
+	document.getElementById("game").innerHTML += "Vous pariez sur : <br>"
+	createMap()
+	
+
+}
+function showBets(){
+
+document.getElementById("game").innerHTML = "Vous pariez sur : <br>"
+for ( l = 0 ; l < StatPlayer.length ; l++){
+document.getElementById("game").innerHTML += ""+StatPlayer[l].nom()+" a parié sur : "+StatPlayer[l].paris()+"<br>"
+
+}
+
+}
+function addbet(x){
+	var roulette = [0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+	
+	ready();
+	var o;
+	for( o = 0 ; o < 37 ; o++){
+		if(roulette[o] == x){
+			document.getElementById("game").innerHTML += roulette[o] + " ";
+		}
+	
+	}
+	
+	var tqt = document.getElementById("listplayer").options;
+	ras = [x]
+	createStat(tqt[clicked].text , ras)
+	document.getElementById("listplayer").selectedIndex = ""+tmpArray2[0];
+	
+
+
+}
+function doublebet(x,y){
+	ready();
+	document.getElementById("game").innerHTML += ""+x+"et "+y+" ";
+	
+	ras = [x,y]
+	var tqt = document.getElementById("listplayer").options;
+	
+	createStat(tqt[clicked].text , ras)
+	document.getElementById("listplayer").selectedIndex = ""+tmpArray2[0];
+
+
+}
+function squarebet(w,x,y,z){
+	ready();
+	document.getElementById("game").innerHTML += ""+w+", "+x+" , "+y+" , "+z+" ";
+	
+	ras = [w,x,y,z]
+	var tqt = document.getElementById("listplayer").options;
+	
+	createStat(tqt[clicked].text , ras)
+	document.getElementById("listplayer").selectedIndex = ""+tmpArray2[0];
+	
+
+}
+function triplebet(x,y,z){
+	ready();
+	document.getElementById("game").innerHTML += ""+x+", "+y+" , "+z+" ";
+	ras = [x,y,z]
+	
+	var tqt = document.getElementById("listplayer").options;
+	
+	createStat(tqt[clicked].text , ras)
+	document.getElementById("listplayer").selectedIndex = ""+tmpArray2[0];
+	
+
+}
+function sixbet(a,b,c,d,e,f){
+	ready();
+	document.getElementById("game").innerHTML += ""+a+", "+b+" , "+c+" ,"+d+", "+e+" , "+f+" ";
+	ras = [a,b,c,d,e,f]
+	
+	var tqt = document.getElementById("listplayer").options;
+	
+	createStat(tqt[clicked].text , ras)
+	document.getElementById("listplayer").selectedIndex = ""+tmpArray2[0];
+	
+}
+function first18bet(yes){
+	
+	ready();
+	for(i = 0 ; i < yes.length ; i++){
+	document.getElementById("game").innerHTML += ""+yes[i]+" ";
+	}
+	var tqt = document.getElementById("listplayer").options;
+	
+	createStat(tqt[clicked].text , yes)
+	document.getElementById("listplayer").selectedIndex = ""+tmpArray2[0];
+
+}
+
+function createMap(){
+
+
+k = 0
+incr = k + 1;
+addvalue = 46;
+start = 30
+startdouble = 51;
+for ( k = 0 ; k < 12 ; k++){
+var node = document.createElement("AREA");
+node.setAttribute("id",""+incr);
+node.setAttribute("href","#");
+node.setAttribute("shape","circle");
+start = start + 46;
+node.setAttribute("coords", ""+start+",144,16");
+
+
+node.setAttribute('onclick',"addbet("+incr+");");
+
+document.getElementById("maptapis").appendChild(node);
+  incr+=1;
+ var node = document.createElement("AREA");
+node.setAttribute("id",""+incr);
+node.setAttribute("href","#");
+node.setAttribute("shape","circle");
+node.setAttribute("coords", ""+start+",89,16");
+
+node.setAttribute('onclick',"addbet("+incr+");");
+document.getElementById("maptapis").appendChild(node);
+  incr+=1;
+var node = document.createElement("AREA");
+node.setAttribute("id",""+incr);
+node.setAttribute("href","#");
+node.setAttribute("shape","circle");
+node.setAttribute("coords", ""+start+",35,16");
+node.setAttribute('onclick',"addbet("+incr+");");
+document.getElementById("maptapis").appendChild(node); 
+incr+=1;
+}
+
+for ( i = 3 ; i < 36 ; i+=3){
+	a = 3 + i;
+		var node = document.createElement("AREA");
+
+node.setAttribute("href","#");
+node.setAttribute("shape","circle");
+startdouble = startdouble + 46;
+node.setAttribute("coords", ""+startdouble+",37,3");
+
+
+node.setAttribute('onclick',"doublebet("+i+","+a+");");
+
+document.getElementById("maptapis").appendChild(node);				
+}
+startdouble = 51;
+for ( i = 2 ; i < 35 ; i+=3){
+		a = 3 + i;
+		var node = document.createElement("AREA");
+
+node.setAttribute("href","#");
+node.setAttribute("shape","circle");
+startdouble = startdouble + 46;
+node.setAttribute("coords", ""+startdouble+",89,3");
+
+
+node.setAttribute('onclick',"doublebet("+i+","+a+");");
+
+document.getElementById("maptapis").appendChild(node);
+		
+}
+startdouble = 51;
+for ( i = 1 ; i < 34 ; i+=3){
+		a = 3 + i;
+		var node = document.createElement("AREA");
+
+node.setAttribute("href","#");
+node.setAttribute("shape","circle");
+startdouble = startdouble + 46;
+node.setAttribute("coords", ""+startdouble+",142,3");
+
+
+node.setAttribute('onclick',"doublebet("+i+","+a+");");
+
+document.getElementById("maptapis").appendChild(node);
+
+}
+secondstart = 23;
+for ( i = 2 ; i < 36 ; i+=3){
+		a = 1 + i;
+		var node = document.createElement("AREA");
+
+node.setAttribute("href","#");
+node.setAttribute("shape","circle");
+secondstart = secondstart + 47;
+node.setAttribute("coords", ""+secondstart+",63,5");
+
+
+node.setAttribute('onclick',"doublebet("+i+","+a+");");
+
+document.getElementById("maptapis").appendChild(node);
+
+}
+secondstart = 23;
+for ( i = 1 ; i < 35 ; i+=3){
+		a = 1 + i;
+				var node = document.createElement("AREA");
+
+node.setAttribute("href","#");
+node.setAttribute("shape","circle");
+secondstart = secondstart + 47;
+node.setAttribute("coords", ""+secondstart+",116,5");
+
+
+node.setAttribute('onclick',"doublebet("+i+","+a+");");
+
+document.getElementById("maptapis").appendChild(node);
+}
+thirdstart = 53;
+for ( i = 0 ; i < 32 ; i+=3){
+		a =i+1;
+        b  = a + 1;
+        c = b + 2
+        d = c + 1;
+		
+		var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		thirdstart = thirdstart + 46;
+		node.setAttribute("coords", ""+thirdstart+",117,10");
+
+
+		node.setAttribute('onclick',"squarebet("+a+","+b+","+c+","+d+");");
+
+		document.getElementById("maptapis").appendChild(node);
+		
+		
+		
+		//document.getElementById("window").innerHTML += " "+a+" "+b+" "+c+" "+d+"<br>";
+}
+thirdstart = 53;
+for ( i = 1 ; i < 32 ; i+=3){
+		a =i+1;
+        b  = a + 1;
+        c = b + 2
+        d = c + 1;
+		var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		thirdstart = thirdstart + 46;
+		node.setAttribute("coords", ""+thirdstart+",64,10");
+
+
+		node.setAttribute('onclick',"squarebet("+a+","+b+","+c+","+d+");");
+
+		document.getElementById("maptapis").appendChild(node);
+	}
+fourthstart = 30
+for ( i = 0 ; i < 36 ; i+=3){
+		a =i+1;
+        b  = i + 2;
+        c = i + 3
+        
+		var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		fourthstart = fourthstart + 46;
+		node.setAttribute("coords", ""+fourthstart+",7,10");
+
+
+		node.setAttribute('onclick',"triplebet("+a+","+b+","+c+");");
+
+		document.getElementById("maptapis").appendChild(node);
+	}
+fifthstart = 53;
+
+for ( i = 0 ; i < 33 ; i+=3){
+		a =i+1;
+        b  = i + 2;
+        c = i + 3
+        d = i + 4
+        e = i + 5
+        f = i + 6
+        
+		
+		var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		fifthstart = fifthstart + 46;
+		node.setAttribute("coords", ""+fifthstart+",167,8");
+
+
+		node.setAttribute('onclick',"sixbet("+a+","+b+","+c+","+d+","+e+","+f+");");
+
+		document.getElementById("maptapis").appendChild(node);
+		
+	}
+
+yes = []
+for ( i = 0 ; i < 18 ; i ++){
+yes.push(i+1);
+
+}
+var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		
+		node.setAttribute("coords", "86,253,14");
+
+		
+		node.setAttribute('onclick',"first18bet("+"["+yes+"]"+");");
+
+		document.getElementById("maptapis").appendChild(node);
+																	
+yes2 = []
+for ( i = 18 ; i < 36 ; i ++){
+yes2.push(i+1);
+
+}
+var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		
+		node.setAttribute("coords", "569,253,14");
+
+		
+		node.setAttribute('onclick',"first18bet("+"["+yes2+"]"+");");
+
+		document.getElementById("maptapis").appendChild(node);
+		
+yes3 = []
+for ( i = 0 ; i < 36 ; i++){
+		
+    if((i+1)%2 == 0){
+		yes3.push(i+1)
+    }
+ }
+
+var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		
+		node.setAttribute("coords", "157,253,14");
+
+		
+		node.setAttribute('onclick',"first18bet("+"["+yes3+"]"+");");
+
+		document.getElementById("maptapis").appendChild(node);
+
+yes4 = []
+for ( i = 0 ; i < 36 ; i++){
+		
+    if((i+1)%2 != 0){
+		yes4.push(i+1)
+    }
+ }
+var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		
+		node.setAttribute("coords", "500,253,14");
+
+		
+		node.setAttribute('onclick',"first18bet("+"["+yes4+"]"+");");
+
+		document.getElementById("maptapis").appendChild(node);
+tmpA = 1;
+yes5 = [];
+yes5.push(tmpA)
+for ( i = 1 ; i < 18 ; i++){
+		
+    	
+        if( i == 5 || i == 14){
+        	tmpA = tmpA + 3;
+			yes5.push(tmpA)
+        }
+        else if(i == 9 ){
+        tmpA = tmpA + 1;
+		yes5.push(tmpA)
+        }
+        else{
+        tmpA = tmpA + 2
+		yes5.push(tmpA)
+		}
+    }
+var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		
+		node.setAttribute("coords", "256,253,14");
+
+		
+		node.setAttribute('onclick',"first18bet("+"["+yes5+"]"+");");
+
+		document.getElementById("maptapis").appendChild(node);
+tmpB = 2;
+yes6 = []
+yes6.push(tmpB)
+
+    a = 2;
+	for ( i = 1 ; i < 18 ; i++){
+		
+    	
+        if( i == 5 || i == 14){
+        	tmpB = tmpB + 1;
+			yes6.push(tmpB)
+        }
+        else if(i == 9 ){
+        tmpB = tmpB + 3;
+		yes6.push(tmpB)
+        }
+        else{
+        tmpB = tmpB + 2
+		yes6.push(tmpB)
+		}
+    }	
+var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		
+		node.setAttribute("coords", "395,253,14");
+
+		
+		node.setAttribute('onclick',"first18bet("+"["+yes6+"]"+");");
+
+		document.getElementById("maptapis").appendChild(node);
+
+yes7 = []
+yes8 = []
+yes9 = []
+	for ( i = 1 ; i < 37 ; i++){
+		if ( i < 13 ){
+    	yes7.push(i)
+    	}
+        else if ( i < 25 ){
+        yes8.push(i)
+        }
+        else {
+        
+         yes9.push(i)
+        
+        }
+    }
+	var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		
+		node.setAttribute("coords", "123,197,14");
+
+		
+		node.setAttribute('onclick',"first18bet("+"["+yes7+"]"+");");
+
+		document.getElementById("maptapis").appendChild(node);
+		
+		
+		var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		
+		node.setAttribute("coords", "330,197,14");
+
+		
+		node.setAttribute('onclick',"first18bet("+"["+yes8+"]"+");");
+
+		document.getElementById("maptapis").appendChild(node);
+		
+		
+		var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		
+		node.setAttribute("coords", "510,197,14");
+
+		
+		node.setAttribute('onclick',"first18bet("+"["+yes9+"]"+");");
+
+		document.getElementById("maptapis").appendChild(node);
+		
+		yes10 = []
+		yes11 = []
+		yes12 = []
+		var1 = 1
+		var2 = 2
+		var3 = 3
+		for ( i = 1 ; i < 13 ; i++){
+		yes10.push(var1);
+        var1 = var1 +3;
+		}
+		for ( i = 1 ; i < 13 ; i++){
+		yes11.push(var2);
+        var2 = var2 +3;
+		}
+		for ( i = 1 ; i < 13 ; i++){
+		yes12.push(var3);
+        var3 = var3 +3;
+		}
+		
+		var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		
+		node.setAttribute("coords", "634,143,14");
+
+		
+		node.setAttribute('onclick',"first18bet("+"["+yes10+"]"+");");
+
+		document.getElementById("maptapis").appendChild(node);
+		
+		var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		
+		node.setAttribute("coords", "634,88,14");
+
+		
+		node.setAttribute('onclick',"first18bet("+"["+yes11+"]"+");");
+
+		document.getElementById("maptapis").appendChild(node);
+		
+		
+		
+		var node = document.createElement("AREA");
+
+		node.setAttribute("href","#");
+		node.setAttribute("shape","circle");
+		
+		node.setAttribute("coords", "634,35,14");
+
+		
+		node.setAttribute('onclick',"first18bet("+"["+yes12+"]"+");");
+
+		document.getElementById("maptapis").appendChild(node);
+		
+		
+		
+		
+		
+		
+}
+
+
+</script>
+
+<link rel="stylesheet" href="styles.css">
+
+<title>ROULETTE DE FOU OMG</title>
+
+</head>
+
+<body>
+
+<h1>Bienvenue au Jeu de la roulette </h1>
+<h2></h2>
+
+<div3 id = "window">
+Joueurs :
+<br>
+</div3 id = "window" >
+<div4>
+<label for="name">Nom (3 a 10 caracteres):</label>
+<br>
+<br>
+<input type="text" id="name" name="name" required minlength="3" maxlength="10" size="20" >
+<br>
+<br>
+<button onclick="valider()"   >Valider</button>
+<br>
+<br>
+<button onclick="reset()"   >Reset</button>
+ mmmmmmmmmmmmmmmmmmmmmmmmmm 
+<button id ="spinbutton" onclick="launch()">Tourner la roue !</button>
+<br>
+<br>
+<button onclick ="ready()">Ready</button>
+ mmmmmmmmmmmmmmmmmmmmmmmmmm                                       
+<button onclick="stop()" >Reset</button>
+<br>
+<br>
+<button onclick="showBets()">show</button>
+</div4>
+<img id ="Roulette" src="rouls/roulette_0.png" alt="Trulli" width="500" height="421">
+
+
+<div5 id = "game">
+
+</div5>
+
+<div6 id = "sisi">
+
+</div6>	
+<img id ="tapis" src="rouls/tapisbutton.png" alt="Trulli" usemap="#tapismap" width="662" height="282">
+
+
+<map id="maptapis" name="tapismap">
+	
+</map>
+
+
+
+
+
+</body>
+</html> 
